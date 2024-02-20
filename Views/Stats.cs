@@ -54,11 +54,9 @@ namespace WindowsFormsApp2
             chart3.Series[0].XValueMember = "Y";
             chart3.Series[0].YValueMembers = "X";
             chart3.DataBind();
+            chart2.Series[0].ToolTip = "Буква  #VALX встречается #VALY";
             if (analyzer.LettersAmount != null)
-            {
-                foreach (var pair in analyzer.LettersAmount)
-                    chart2.Series[0].Points.AddXY(pair.Key, pair.Value);
-            }
+                chart2.Series[0].Points.DataBindXY(analyzer.LettersAmount.Keys, analyzer.LettersAmount.Values);
         }
         private void ApplyExistingData(IAnalyzeInfoContainer analyzer)
         {

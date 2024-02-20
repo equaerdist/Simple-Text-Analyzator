@@ -28,7 +28,7 @@ namespace WindowsFormsApp2
             _presenter = new GlobalPresenter(this);
             Text = string.Empty;
            
-            var promo = new Promo(text => ProjectName = text, info => AnalyzerInfo = info);
+            var promo = new Promo(text => { ProjectName = text; AnalyzerInfo = null; }, info => AnalyzerInfo = info);
             _activeForm = promo;
             button2.Enabled = false;
             ActivateForm(promo);
@@ -80,7 +80,7 @@ namespace WindowsFormsApp2
             if (_activeForm is Promo)
                 return;
             _activeForm?.Close();
-            var promo = new Promo(text => ProjectName = text, info => AnalyzerInfo = info);
+            var promo = new Promo(text => { ProjectName = text; AnalyzerInfo = null; }, info => AnalyzerInfo = info);
             ActivateForm(promo);
             _activeForm = promo;
             tableLayoutPanel3.Controls.Add(_activeForm, 0, 1);
