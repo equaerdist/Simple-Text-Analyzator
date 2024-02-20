@@ -143,5 +143,10 @@ namespace WindowsFormsApp2
         public List<AnalyzePoint> WordsBySentences { get ; set ; }
 
         public event Action GlobalStateChanged;
+
+        private void aos_stat_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
