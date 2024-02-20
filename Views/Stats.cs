@@ -54,6 +54,11 @@ namespace WindowsFormsApp2
             chart3.Series[0].XValueMember = "Y";
             chart3.Series[0].YValueMembers = "X";
             chart3.DataBind();
+            if (analyzer.LettersAmount != null)
+            {
+                foreach (var pair in analyzer.LettersAmount)
+                    chart2.Series[0].Points.AddXY(pair.Key, pair.Value);
+            }
         }
         private void ApplyExistingData(IAnalyzeInfoContainer analyzer)
         {
@@ -78,12 +83,12 @@ namespace WindowsFormsApp2
                 fs.Close(); 
             }
         }
-        private void Initialize(FileStream fs)
+        private async Task Initialize(FileStream fs)
         {
             try
             {
                 var analyzer = new Analyzer.Analyzer(fs);
-                analyzer.Analyze();
+                await analyzer.AnalyzeAsync();
                 BindData(analyzer);
                 var cachedInfo = new AnalyzerInfo()
                 {
@@ -94,7 +99,8 @@ namespace WindowsFormsApp2
                     MostShortWord = analyzer.MostShortWord,
                     WordsBySentences = analyzer.WordsBySentences,
                     LettersBySentences = analyzer.LettersBySentences,
-                    SentencesAmount = analyzer.SentencesAmount
+                    SentencesAmount = analyzer.SentencesAmount,
+                    LettersAmount = analyzer.LettersAmount
                 };
                 _setInfo(cachedInfo);
                 SaveProject(cachedInfo);
